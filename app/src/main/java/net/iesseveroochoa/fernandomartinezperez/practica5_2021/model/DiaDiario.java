@@ -116,6 +116,7 @@ class DiaDiario implements Parcelable {
         }
         return valRes;
     }
+
     public static int getValResStatic(int valoracionDia) {
         int valRes = 0;
         if (valoracionDia < 5) {
@@ -127,6 +128,7 @@ class DiaDiario implements Parcelable {
         }
         return valRes;
     }
+
     public String getFechaFormatoLocal() {
         DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM,
                 Locale.getDefault());
