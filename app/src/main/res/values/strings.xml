@@ -3,5 +3,8 @@
     <string name="vacio"></string>
     <string name="acercade">Acerca de...</string>
     <string name="ordenar">Ordenar</string>
-    <string name="alfab">a-z</string>
+    <string name="Asc">Asc</string>
+    <string name="Desc">Desc</string>
+    <string name="az"><![CDATA[a>z]]></string>
+
 </resources>

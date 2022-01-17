@@ -1,10 +1,12 @@
-package net.iesseveroochoa.fernandomartinezperez.practica5_2021;
+package net.iesseveroochoa.fernandomartinezperez.practica5_2021.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.Menu;
+
+import net.iesseveroochoa.fernandomartinezperez.practica5_2021.R;
 
 
 public class MainActivity extends AppCompatActivity {
