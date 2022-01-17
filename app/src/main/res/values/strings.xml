@@ -3,4 +3,5 @@
     <string name="vacio"></string>
     <string name="acercade">Acerca de...</string>
     <string name="ordenar">Ordenar</string>
+    <string name="alfab">a-z</string>
 </resources>
