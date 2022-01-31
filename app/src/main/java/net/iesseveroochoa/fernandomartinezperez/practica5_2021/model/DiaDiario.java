@@ -4,11 +4,20 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.BaseColumns;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-class DiaDiario implements Parcelable {
+import java.util.Objects;
+@Entity(tableName = DiaDiario.TABLE_NAME,
+        indices = {@Index(value = {DiaDiario.FECHA},unique = true)})
+public class DiaDiario implements Parcelable {
     public static final String TABLE_NAME = "diario";
     public static final String ID = BaseColumns._ID;
     public static final String FECHA = "fecha";
@@ -16,12 +25,40 @@ class DiaDiario implements Parcelable {
     public static final String RESUMEN = "resumen";
     public static final String CONTENIDO = "contenido";
     public static final String FOTO_URI = "foto_uri";
+    static int contador = 1;
+
+    @PrimaryKey(autoGenerate = true)
+    @NonNull
+    @ColumnInfo(name=ID)
     private int id;
+
     private Date fecha;
+
     private int valoracionDia;
+
     private String resumen;
+
     private String contenido;
+
     private String fotoUri;
+
+    @Ignore
+    public DiaDiario(int id, Date fecha, int valoracionDia, String resumen, String contenido) {
+        this.id = id;
+        this.fecha = fecha;
+        this.valoracionDia = valoracionDia;
+        this.resumen = resumen;
+        this.contenido = contenido;
+    }
+
+    public DiaDiario(@NonNull Date fecha, int valoracionDia, @NonNull String
+            resumen, @NonNull String contenido) {
+        this.id = contador++;
+        this.fecha = fecha;
+        this.valoracionDia = valoracionDia;
+        this.resumen = resumen;
+        this.contenido = contenido;
+    }
 
     protected DiaDiario(Parcel in) {
         id = in.readInt();
@@ -30,7 +67,10 @@ class DiaDiario implements Parcelable {
         contenido = in.readString();
         fotoUri = in.readString();
     }
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, fecha, valoracionDia, resumen, contenido, fotoUri);
+    }
     public static final Creator<DiaDiario> CREATOR = new Creator<DiaDiario>() {
         @Override
         public DiaDiario createFromParcel(Parcel in) {
@@ -133,6 +173,14 @@ class DiaDiario implements Parcelable {
         DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM,
                 Locale.getDefault());
         return df.format(fecha);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DiaDiario diaDiario = (DiaDiario) o;
+        return id == diaDiario.id;
     }
 
 }

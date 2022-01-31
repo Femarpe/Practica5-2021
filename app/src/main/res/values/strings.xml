@@ -6,5 +6,25 @@
     <string name="Asc">Asc</string>
     <string name="Desc">Desc</string>
     <string name="az"><![CDATA[a>z]]></string>
+    <string name="fechaEJ">01/01/2022</string>
+    <string name="ValorDia">Valoracion del dia</string>
+    <string name="Res">Resumen</string>
+    <string name="cvacioMensage">Alguno de los campos esta vacio, rellenelo para añadir tarea</string>
+    <string name="campovacio">Campo Vacio</string>
+    <string name="mensageBorrar">¿Esta seguro de borrar la tarea</string>
+    <string name="borrar">Borrar tarea</string>
+    <string name="cancelar">Cancelar</string>
+    <string-array name="ValorDia">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
 
 </resources>
