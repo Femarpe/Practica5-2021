@@ -15,7 +15,7 @@ import net.iesseveroochoa.fernandomartinezperez.practica5_2021.model.DiaDiario;
 
 import java.util.List;
 
-public class DiaAdapter extends RecyclerView.Adapter<DiaAdapter.TareaViewHolder> {
+public class DiaAdapter extends RecyclerView.Adapter<DiaAdapter.DiaViewHolder> {
     private List<DiaDiario> listaDias;
     private OnItemClickBorrarListener listenerBorrar;
     private OnItemClickEditarListener listenerEditar;
@@ -27,13 +27,13 @@ public class DiaAdapter extends RecyclerView.Adapter<DiaAdapter.TareaViewHolder>
 
     @NonNull
     @Override
-    public DiaAdapter.TareaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DiaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dia, parent, false);
-        return new TareaViewHolder(itemView);
+        return new DiaViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DiaAdapter.TareaViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DiaViewHolder holder, int position) {
         if (listaDias != null) {
             final DiaDiario dia = listaDias.get(position);
 
@@ -51,7 +51,7 @@ public class DiaAdapter extends RecyclerView.Adapter<DiaAdapter.TareaViewHolder>
         else return 0;
     }
 
-    public class TareaViewHolder extends RecyclerView.ViewHolder {
+    public class DiaViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvResumen;
         private TextView tvTecnico;
@@ -60,7 +60,7 @@ public class DiaAdapter extends RecyclerView.Adapter<DiaAdapter.TareaViewHolder>
         private ImageView ivBorrar;
         private ConstraintLayout clItem;
 
-        private TareaViewHolder(@NonNull View itemView) {
+        private DiaViewHolder(@NonNull View itemView) {
             super(itemView);
             tvResumen = itemView.findViewById(R.id.tvResumen);
             tvTecnico = itemView.findViewById(R.id.tvTecnico);
@@ -69,12 +69,12 @@ public class DiaAdapter extends RecyclerView.Adapter<DiaAdapter.TareaViewHolder>
 
             ivEditar = itemView.findViewById(R.id.ivEditar);
             ivEditar.setOnClickListener(v -> listenerEditar.onItemClickEditar(
-                    listaDias.get(TareaViewHolder.this.getAbsoluteAdapterPosition())));
+                    listaDias.get(DiaViewHolder.this.getAbsoluteAdapterPosition())));
 
 
             ivBorrar = itemView.findViewById(R.id.ivBorrar);
             ivBorrar.setOnClickListener(v -> listenerBorrar.onItemClickBorrar(
-                    listaDias.get(TareaViewHolder.this.getAbsoluteAdapterPosition())));
+                    listaDias.get(DiaViewHolder.this.getAbsoluteAdapterPosition())));
 
             clItem = itemView.findViewById(R.id.clItem);
 
@@ -82,12 +82,12 @@ public class DiaAdapter extends RecyclerView.Adapter<DiaAdapter.TareaViewHolder>
     }
 
     public interface OnItemClickBorrarListener {
-        void onItemClickBorrar(DiaDiario tarea);
+        void onItemClickBorrar(DiaDiario dia);
 
     }
 
     public interface OnItemClickEditarListener {
-        void onItemClickEditar(DiaDiario tarea);
+        void onItemClickEditar(DiaDiario dia);
     }
 
     public void setOnItemClickBorrarListener(OnItemClickBorrarListener listener) {

@@ -49,23 +49,23 @@ public class MainActivity extends AppCompatActivity {
 
         diaViewModel = new ViewModelProvider(this).get(DiaViewModel.class);
         diaViewModel.getListaDias().observe(this, adapter::setListaDias);
-        //diaViewModel.crearDatos();
+
 
 
         fabnDia.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, EdicionDiaActivity.class);
-            int codigoNuevaTarea = OPTION_REQUEST_CREAR;
-            startActivityForResult(intent, codigoNuevaTarea);
+            int codigoNuevoDia = OPTION_REQUEST_CREAR;
+            startActivityForResult(intent, codigoNuevoDia);
         });
 
-        adapter.setOnItemClickBorrarListener(tarea -> {
+        adapter.setOnItemClickBorrarListener(dia -> {
 
             AlertDialog.Builder builder =
                     new AlertDialog.Builder(MainActivity.this);
 
-            builder.setMessage(getString(R.string.mensageBorrar) + tarea.getId() + "?").setTitle(R.string.borrar)
+            builder.setMessage(getString(R.string.mensageBorrar) + dia.getId() + "?").setTitle(R.string.borrar)
                     .setPositiveButton("Ok", (dialog, id) -> {
-                        diaViewModel.delDia(tarea);
+                        diaViewModel.delDia(dia);
                         dialog.cancel();
 
                     })
@@ -73,9 +73,9 @@ public class MainActivity extends AppCompatActivity {
             builder.show();
 
         });
-        adapter.setOnItemClickEditarListener(tarea -> {
+        adapter.setOnItemClickEditarListener(dia -> {
             Intent intent = new Intent(MainActivity.this, EdicionDiaActivity.class);
-            intent.putExtra(EXTRA_DIA, tarea);
+            intent.putExtra(EXTRA_DIA, dia);
             startActivityForResult(intent, OPTION_REQUEST_EDITAR);
         });
     }
@@ -107,16 +107,13 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Aqui se recogen los datos de la nuava tarea
-     */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            /**En caso de que la tarea sea nuava aqui se recoge y se añade al recycler view*/
             DiaDiario diario = data.getParcelableExtra(EXTRA_DIA);
 
             if (requestCode == OPTION_REQUEST_CREAR) {
@@ -124,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
 
                 diaViewModel.addDia(diario);
 
-                /**en caso de que la tarea fuese una editada se sobreesciben los datos*/
             } else if (requestCode == OPTION_REQUEST_EDITAR) {
 
                 diaViewModel.addDia(diario);

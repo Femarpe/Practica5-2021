@@ -33,9 +33,7 @@ public class DiaViewModel extends AndroidViewModel {
         return listaDiasLiveData;
     }
 
-    /**
-     * Este metodo sirve para setear una lista de tareas precargada en caso de ser necesario
-     */
+
     public void setListaDias(List<DiaDiario> listaDias) {
         this.listaDias = listaDias;
     }
@@ -70,9 +68,6 @@ public class DiaViewModel extends AndroidViewModel {
     }
 
 
-    /**
-     * Este metodo sirve para crear las tareas de ejemplo
-     */
     public void crearDatos() {
         Date date = new Date();
         listaDias = new ArrayList<DiaDiario>();
@@ -129,9 +124,7 @@ public class DiaViewModel extends AndroidViewModel {
         }
     }
 
-    /**
-     * Este metodo sive para sobreescribir los datos de una tarea en concreto
-     */
+
     public void setDatos(int indice, String fecha, int valoracionDia, String resumen, String contenido) {
 
 
