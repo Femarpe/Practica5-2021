@@ -32,7 +32,7 @@ public class DiaDiario implements Parcelable {
     @ColumnInfo(name=ID)
     private int id;
 
-    private Date fecha;
+    private String fecha;
 
     private int valoracionDia;
 
@@ -43,7 +43,7 @@ public class DiaDiario implements Parcelable {
     private String fotoUri;
 
     @Ignore
-    public DiaDiario(int id, Date fecha, int valoracionDia, String resumen, String contenido) {
+    public DiaDiario(int id, String fecha, int valoracionDia, String resumen, String contenido) {
         this.id = id;
         this.fecha = fecha;
         this.valoracionDia = valoracionDia;
@@ -51,7 +51,7 @@ public class DiaDiario implements Parcelable {
         this.contenido = contenido;
     }
 
-    public DiaDiario(@NonNull Date fecha, int valoracionDia, @NonNull String
+    public DiaDiario(@NonNull String fecha, int valoracionDia, @NonNull String
             resumen, @NonNull String contenido) {
         this.id = contador++;
         this.fecha = fecha;
@@ -91,11 +91,11 @@ public class DiaDiario implements Parcelable {
         this.id = id;
     }
 
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

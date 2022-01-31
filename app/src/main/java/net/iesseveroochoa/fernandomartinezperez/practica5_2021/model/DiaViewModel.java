@@ -15,22 +15,22 @@ import java.util.Date;
 import java.util.List;
 
 public class DiaViewModel extends AndroidViewModel {
-    private MutableLiveData<List<DiaDiario>> listaTareasLiveData;
+    private MutableLiveData<List<DiaDiario>> listaDiasLiveData;
 
     private List<DiaDiario> listaDias;
 
     public DiaViewModel(@NonNull Application application) {
         super(application);
 
-        listaTareasLiveData = new MutableLiveData<List<DiaDiario>>();
-        //crearDatos();
-        listaTareasLiveData.setValue(listaDias);
+        listaDiasLiveData = new MutableLiveData<List<DiaDiario>>();
+        crearDatos();
+        listaDiasLiveData.setValue(listaDias);
 
     }
 
 
     public LiveData<List<DiaDiario>> getListaDias() {
-        return listaTareasLiveData;
+        return listaDiasLiveData;
     }
 
     /**
@@ -43,18 +43,18 @@ public class DiaViewModel extends AndroidViewModel {
     /**
      * Este metodo sirve par añadir una dia
      */
-    public void addTarea(DiaDiario dia) {
+    public void addDia(DiaDiario dia) {
         int index = 0;
 
         index = listaDias.indexOf(dia);
         if (index < 0) {
             listaDias.add(dia);
-            listaTareasLiveData.setValue(listaDias);
+            listaDiasLiveData.setValue(listaDias);
 
         } else {
             listaDias.remove(index);
             listaDias.add(index, dia);
-            listaTareasLiveData.setValue(listaDias);
+            listaDiasLiveData.setValue(listaDias);
 
         }
     }
@@ -62,10 +62,10 @@ public class DiaViewModel extends AndroidViewModel {
     /**
      * Este metodo sirve para borrar una dia
      */
-    public void delTarea(DiaDiario dia) {
+    public void delDia(DiaDiario dia) {
         if (listaDias.size() > 0) {
             listaDias.remove(dia);
-            listaTareasLiveData.setValue(listaDias);
+            listaDiasLiveData.setValue(listaDias);
         }
     }
 
@@ -79,7 +79,7 @@ public class DiaViewModel extends AndroidViewModel {
         SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-MM-yyyy");
 
         try {
-        DiaDiario dia = new DiaDiario(formatoDelTexto.parse("12-3-2003"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+        DiaDiario dia = new DiaDiario(formatoDelTexto.parse("12-3-2003").toString(), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                 "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
                 "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
                 "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
@@ -88,7 +88,7 @@ public class DiaViewModel extends AndroidViewModel {
                 "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
                 "convallis");
         listaDias.add(dia);
-        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003").toString(), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                 "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
                 "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
                 "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
@@ -97,7 +97,7 @@ public class DiaViewModel extends AndroidViewModel {
                 "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
                 "convallis");
         listaDias.add(dia);
-        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003").toString(), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                 "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
                 "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
                 "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
@@ -106,7 +106,7 @@ public class DiaViewModel extends AndroidViewModel {
                 "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
                 "convallis");
         listaDias.add(dia);
-        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003").toString(), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                 "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
                 "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
                 "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
@@ -115,7 +115,7 @@ public class DiaViewModel extends AndroidViewModel {
                 "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
                 "convallis");
         listaDias.add(dia);
-        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003").toString(), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                 "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
                 "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
                 "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
@@ -132,7 +132,7 @@ public class DiaViewModel extends AndroidViewModel {
     /**
      * Este metodo sive para sobreescribir los datos de una tarea en concreto
      */
-    public void setDatos(int indice, Date fecha, int valoracionDia, String resumen, String contenido) {
+    public void setDatos(int indice, String fecha, int valoracionDia, String resumen, String contenido) {
 
 
         if (indice > 0) {
@@ -140,7 +140,7 @@ public class DiaViewModel extends AndroidViewModel {
             listaDias.get(indice).setContenido(contenido);
             listaDias.get(indice).setValoracionDia(valoracionDia);
             listaDias.get(indice).setResumen(resumen);
-            listaTareasLiveData.setValue(listaDias);
+            listaDiasLiveData.setValue(listaDias);
 
         }
     }

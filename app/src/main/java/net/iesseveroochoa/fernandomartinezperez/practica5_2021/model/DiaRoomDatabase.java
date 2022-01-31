@@ -49,19 +49,19 @@ public abstract class DiaRoomDatabase extends RoomDatabase {
 
                 Date date = new Date();
                 try {
-                    diaDiario = new DiaDiario(formatoDelTexto.parse("12-3-2020"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+                    diaDiario = new DiaDiario(formatoDelTexto.parse("12-3-2020").toString(), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                             "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis ");
                     mDao.insert(diaDiario);
-                    diaDiario = new DiaDiario(formatoDelTexto.parse("12-3-2020"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+                    diaDiario = new DiaDiario(formatoDelTexto.parse("12-3-2020").toString(), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                             "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis ");
                     mDao.insert(diaDiario);
-                    diaDiario = new DiaDiario(formatoDelTexto.parse("12-3-2020"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+                    diaDiario = new DiaDiario(formatoDelTexto.parse("12-3-2020").toString(), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                             "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis ");
                     mDao.insert(diaDiario);
-                    diaDiario = new DiaDiario(formatoDelTexto.parse("12-3-2020"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+                    diaDiario = new DiaDiario(formatoDelTexto.parse("12-3-2020").toString(), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                             "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis ");
                     mDao.insert(diaDiario);
-                    diaDiario = new DiaDiario(formatoDelTexto.parse("12-3-2020"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+                    diaDiario = new DiaDiario(formatoDelTexto.parse("12-3-2020").toString(), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                             "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis ");
                     mDao.insert(diaDiario);
                 } catch (ParseException e) {

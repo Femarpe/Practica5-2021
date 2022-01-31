@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -21,6 +23,7 @@ import net.iesseveroochoa.fernandomartinezperez.practica5_2021.model.DiaViewMode
 
 
 public class MainActivity extends AppCompatActivity {
+    private RecyclerView rvDia;
     public final static String EXTRA_DIA = "EXTRA_DIA";
     public static final int OPTION_REQUEST_CREAR = 1;
     public static final int OPTION_REQUEST_EDITAR = 2;
@@ -33,14 +36,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        rvDia = findViewById(R.id.rvDias);
+
         fabnDia = findViewById(R.id.fabNuevoDia);
         adapter = new DiaAdapter();
+
+        rvDia.setLayoutManager(new LinearLayoutManager(this));
+        rvDia.setAdapter(adapter);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         diaViewModel = new ViewModelProvider(this).get(DiaViewModel.class);
         diaViewModel.getListaDias().observe(this, adapter::setListaDias);
-        diaViewModel.crearDatos();
+        //diaViewModel.crearDatos();
 
 
         fabnDia.setOnClickListener(view -> {
@@ -56,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
             builder.setMessage(getString(R.string.mensageBorrar) + tarea.getId() + "?").setTitle(R.string.borrar)
                     .setPositiveButton("Ok", (dialog, id) -> {
-                        diaViewModel.delTarea(tarea);
+                        diaViewModel.delDia(tarea);
                         dialog.cancel();
 
                     })
@@ -70,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, OPTION_REQUEST_EDITAR);
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -112,12 +122,12 @@ public class MainActivity extends AppCompatActivity {
             if (requestCode == OPTION_REQUEST_CREAR) {
 
 
-                diaViewModel.addTarea(diario);
+                diaViewModel.addDia(diario);
 
                 /**en caso de que la tarea fuese una editada se sobreesciben los datos*/
             } else if (requestCode == OPTION_REQUEST_EDITAR) {
 
-                diaViewModel.addTarea(diario);
+                diaViewModel.addDia(diario);
             }
         }
     }

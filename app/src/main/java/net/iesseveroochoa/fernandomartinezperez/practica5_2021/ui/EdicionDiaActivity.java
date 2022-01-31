@@ -105,10 +105,10 @@ public class EdicionDiaActivity extends AppCompatActivity {
 
 
                     if (esEdicion == true) {
-                        diaDiario = new DiaDiario(diaDiarioAnt.getId(), newCalendar.getTime(), (int) spValorDia.getSelectedItem(), etResumen.getText().toString(), etmContenido.getText().toString());
+                        diaDiario = new DiaDiario(diaDiarioAnt.getId(), newCalendar.getTime().toString(), (int) spValorDia.getSelectedItem(), etResumen.getText().toString(), etmContenido.getText().toString());
 
                     } else {
-                        diaDiario = new DiaDiario(newCalendar.getTime(), (int) spValorDia.getSelectedItem(), etResumen.getText().toString(), etmContenido.getText().toString());
+                        diaDiario = new DiaDiario(newCalendar.getTime().toString(), (int) spValorDia.getSelectedItem(), etResumen.getText().toString(), etmContenido.getText().toString());
 
                     }
 
