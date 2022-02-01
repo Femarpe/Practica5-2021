@@ -6,7 +6,8 @@
 
     <item
         android:id="@+id/accion_ordenar"
-        android:title="@string/ordenar" />
+        android:title="@string/az"
+        app:showAsAction="ifRoom" />
     <item android:title="Item" />
     <item android:title="Item" />
     <item android:title="Item" />

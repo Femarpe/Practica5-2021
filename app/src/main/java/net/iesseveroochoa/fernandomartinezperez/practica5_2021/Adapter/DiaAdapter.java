@@ -38,7 +38,7 @@ public class DiaAdapter extends RecyclerView.Adapter<DiaAdapter.DiaViewHolder> {
             final DiaDiario dia = listaDias.get(position);
 
             holder.tvResumen.setText(dia.getId() + "-" + dia.getResumen());
-            holder.tvTecnico.setText(dia.getId() + "-" + dia.getFechaFormatoLocal());
+            holder.tvTecnico.setText(dia.getId() + "-" + dia.getFecha());
 
 
         }

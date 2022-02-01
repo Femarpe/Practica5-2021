@@ -72,7 +72,7 @@ public class EdicionDiaActivity extends AppCompatActivity {
         if (diaDiarioAnt != null) {
             esEdicion = true;
             spValorDia.setSelection(getIndex(spValorDia, String.valueOf(diaDiarioAnt.getValoracionDia())));
-            tvFecha.setText(diaDiarioAnt.getFechaFormatoLocal());
+            tvFecha.setText(diaDiarioAnt.getFecha().toString());
             etResumen.setText(diaDiarioAnt.getResumen());
             etmContenido.setText(diaDiarioAnt.getContenido());
         } else {
@@ -105,10 +105,10 @@ public class EdicionDiaActivity extends AppCompatActivity {
 
 
                     if (esEdicion == true) {
-                        diaDiario = new DiaDiario(diaDiarioAnt.getId(), newCalendar.getTime().toString(), (int) spValorDia.getSelectedItem(), etResumen.getText().toString(), etmContenido.getText().toString());
+                        diaDiario = new DiaDiario(diaDiarioAnt.getId(), newCalendar.getTime(), (int) spValorDia.getSelectedItem(), etResumen.getText().toString(), etmContenido.getText().toString());
 
                     } else {
-                        diaDiario = new DiaDiario(newCalendar.getTime().toString(), (int) spValorDia.getSelectedItem(), etResumen.getText().toString(), etmContenido.getText().toString());
+                        diaDiario = new DiaDiario(newCalendar.getTime(), (int) spValorDia.getSelectedItem(), etResumen.getText().toString(), etmContenido.getText().toString());
 
                     }
 

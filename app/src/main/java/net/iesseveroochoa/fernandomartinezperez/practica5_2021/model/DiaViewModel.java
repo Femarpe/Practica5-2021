@@ -74,7 +74,7 @@ public class DiaViewModel extends AndroidViewModel {
         SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-MM-yyyy");
 
         try {
-        DiaDiario dia = new DiaDiario(formatoDelTexto.parse("12-3-2003").toString(), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+        DiaDiario dia = new DiaDiario(formatoDelTexto.parse("12-3-2003"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                 "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
                 "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
                 "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
@@ -83,7 +83,7 @@ public class DiaViewModel extends AndroidViewModel {
                 "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
                 "convallis");
         listaDias.add(dia);
-        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003").toString(), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                 "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
                 "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
                 "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
@@ -92,7 +92,7 @@ public class DiaViewModel extends AndroidViewModel {
                 "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
                 "convallis");
         listaDias.add(dia);
-        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003").toString(), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                 "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
                 "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
                 "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
@@ -101,7 +101,7 @@ public class DiaViewModel extends AndroidViewModel {
                 "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
                 "convallis");
         listaDias.add(dia);
-        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003").toString(), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                 "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
                 "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
                 "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
@@ -110,7 +110,7 @@ public class DiaViewModel extends AndroidViewModel {
                 "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
                 "convallis");
         listaDias.add(dia);
-        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003").toString(), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                 "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
                 "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
                 "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
@@ -125,7 +125,7 @@ public class DiaViewModel extends AndroidViewModel {
     }
 
 
-    public void setDatos(int indice, String fecha, int valoracionDia, String resumen, String contenido) {
+    public void setDatos(int indice, Date fecha, int valoracionDia, String resumen, String contenido) {
 
 
         if (indice > 0) {
