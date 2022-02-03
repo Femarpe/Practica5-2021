@@ -13,8 +13,9 @@ import java.util.Date;
 import java.util.concurrent.*;
 
 @Database(entities = {DiaDiario.class}, version = 1)
-public abstract class DiaRoomDatabase extends RoomDatabase {
+
 @TypeConverters({TransformaFechaSQLite.class})
+public abstract class DiaRoomDatabase extends RoomDatabase {
     public abstract DiarioDao diarioDAO();
 
     private static volatile DiaRoomDatabase INSTANCE;

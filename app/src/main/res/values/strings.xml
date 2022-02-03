@@ -14,6 +14,7 @@
     <string name="mensageBorrar">¿Esta seguro de borrar la tarea</string>
     <string name="borrar">Borrar tarea</string>
     <string name="cancelar">Cancelar</string>
+    <string name="contenido">Escribea aqui que te ha ocurrido hoy</string>
     <string-array name="ValorDia">
         <item>0</item>
         <item>1</item>

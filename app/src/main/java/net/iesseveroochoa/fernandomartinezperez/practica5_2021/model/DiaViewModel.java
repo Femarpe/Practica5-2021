@@ -74,7 +74,16 @@ public class DiaViewModel extends AndroidViewModel {
         SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-MM-yyyy");
 
         try {
-        DiaDiario dia = new DiaDiario(formatoDelTexto.parse("12-3-2003"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+        DiaDiario dia = new DiaDiario(formatoDelTexto.parse("12-3-2001"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+                "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
+                "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
+                "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
+                "viverra pharetra. Pellentesque pulvinar vestibulum risus sit amet tempor. " +
+                "Sed blandit arcu sed risus interdum fermentum. Integer ornare lorem urna, " +
+                "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
+                "convallis");
+        listaDias.add(dia);
+        dia = new DiaDiario(formatoDelTexto.parse("12-3-2002"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                 "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
                 "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
                 "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
@@ -92,7 +101,7 @@ public class DiaViewModel extends AndroidViewModel {
                 "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
                 "convallis");
         listaDias.add(dia);
-        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+        dia = new DiaDiario(formatoDelTexto.parse("12-3-2004"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                 "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
                 "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
                 "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
@@ -101,16 +110,7 @@ public class DiaViewModel extends AndroidViewModel {
                 "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
                 "convallis");
         listaDias.add(dia);
-        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
-                "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
-                "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
-                "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
-                "viverra pharetra. Pellentesque pulvinar vestibulum risus sit amet tempor. " +
-                "Sed blandit arcu sed risus interdum fermentum. Integer ornare lorem urna, " +
-                "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
-                "convallis");
-        listaDias.add(dia);
-        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+        dia = new DiaDiario(formatoDelTexto.parse("12-3-2005"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                 "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
                 "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
                 "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +

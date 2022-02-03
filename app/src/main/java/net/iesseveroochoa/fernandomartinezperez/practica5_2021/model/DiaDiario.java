@@ -16,8 +16,9 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
+
 @Entity(tableName = DiaDiario.TABLE_NAME,
-        indices = {@Index(value = {DiaDiario.FECHA},unique = true)})
+        indices = {@Index(value = {DiaDiario.FECHA}, unique = true)})
 public class DiaDiario implements Parcelable {
 
     public static final String TABLE_NAME = "diario";
@@ -31,7 +32,7 @@ public class DiaDiario implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     @NonNull
-    @ColumnInfo(name=ID)
+    @ColumnInfo(name = ID)
     private int id;
 
     private Date fecha;
@@ -61,29 +62,6 @@ public class DiaDiario implements Parcelable {
         this.resumen = resumen;
         this.contenido = contenido;
     }
-
-    protected DiaDiario(Parcel in) {
-        id = in.readInt();
-        valoracionDia = in.readInt();
-        resumen = in.readString();
-        contenido = in.readString();
-        fotoUri = in.readString();
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, fecha, valoracionDia, resumen, contenido, fotoUri);
-    }
-    public static final Creator<DiaDiario> CREATOR = new Creator<DiaDiario>() {
-        @Override
-        public DiaDiario createFromParcel(Parcel in) {
-            return new DiaDiario(in);
-        }
-
-        @Override
-        public DiaDiario[] newArray(int size) {
-            return new DiaDiario[size];
-        }
-    };
 
     public int getId() {
         return id;
@@ -133,20 +111,6 @@ public class DiaDiario implements Parcelable {
         this.fotoUri = fotoUri;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeInt(valoracionDia);
-        parcel.writeString(resumen);
-        parcel.writeString(contenido);
-        parcel.writeString(fotoUri);
-    }
-
     public int getValoracionResumida(int valoracionDia) {
         int valRes = 0;
         if (valoracionDia < 5) {
@@ -171,14 +135,13 @@ public class DiaDiario implements Parcelable {
         return valRes;
     }
 
-    /*
+
     public String getFechaFormatoLocal() {
         DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM,
                 Locale.getDefault());
         return df.format(fecha);
     }
 
-     */
 
     @Override
     public boolean equals(Object o) {
@@ -188,4 +151,84 @@ public class DiaDiario implements Parcelable {
         return id == diaDiario.id;
     }
 
+
+    /**
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeLong(this.fecha != null ? this.fecha.getTime() : -1);
+        parcel.writeInt(valoracionDia);
+        parcel.writeString(resumen);
+        parcel.writeString(contenido);
+        parcel.writeString(fotoUri);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, fecha, valoracionDia, resumen, contenido, fotoUri);
+    }
+
+    public static final Creator<DiaDiario> CREATOR = new Creator<DiaDiario>() {
+        @Override
+        public DiaDiario createFromParcel(Parcel in) {
+            return new DiaDiario(in);
+        }
+
+        @Override
+        public DiaDiario[] newArray(int size) {
+            return new DiaDiario[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeLong(this.fecha != null ? this.fecha.getTime() : -1);
+        dest.writeInt(this.valoracionDia);
+        dest.writeString(this.resumen);
+        dest.writeString(this.contenido);
+        dest.writeString(this.fotoUri);
+    }
+
+    public void readFromParcel(Parcel source) {
+        this.id = source.readInt();
+        long tmpFecha = source.readLong();
+        this.fecha = tmpFecha == -1 ? null : new Date(tmpFecha);
+        this.valoracionDia = source.readInt();
+        this.resumen = source.readString();
+        this.contenido = source.readString();
+        this.fotoUri = source.readString();
+    }
+
+    protected DiaDiario(Parcel in) {
+        this.id = in.readInt();
+        long tmpFecha = in.readLong();
+        this.fecha = tmpFecha == -1 ? null : new Date(tmpFecha);
+        this.valoracionDia = in.readInt();
+        this.resumen = in.readString();
+        this.contenido = in.readString();
+        this.fotoUri = in.readString();
+    }
+
+    public static final Creator<DiaDiario> CREATOR = new Creator<DiaDiario>() {
+        @Override
+        public DiaDiario createFromParcel(Parcel source) {
+            return new DiaDiario(source);
+        }
+
+        @Override
+        public DiaDiario[] newArray(int size) {
+            return new DiaDiario[size];
+        }
+    };
 }
