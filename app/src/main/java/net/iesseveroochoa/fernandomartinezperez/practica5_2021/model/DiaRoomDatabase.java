@@ -53,16 +53,16 @@ public abstract class DiaRoomDatabase extends RoomDatabase {
                     diaDiario = new DiaDiario(formatoDelTexto.parse("12-3-2020"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                             "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis ");
                     mDao.insert(diaDiario);
-                    diaDiario = new DiaDiario(formatoDelTexto.parse("12-3-2020"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+                    diaDiario = new DiaDiario(formatoDelTexto.parse("13-3-2020"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                             "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis ");
                     mDao.insert(diaDiario);
-                    diaDiario = new DiaDiario(formatoDelTexto.parse("12-3-2020"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+                    diaDiario = new DiaDiario(formatoDelTexto.parse("14-3-2020"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                             "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis ");
                     mDao.insert(diaDiario);
-                    diaDiario = new DiaDiario(formatoDelTexto.parse("12-3-2020"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+                    diaDiario = new DiaDiario(formatoDelTexto.parse("15-3-2020"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                             "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis ");
                     mDao.insert(diaDiario);
-                    diaDiario = new DiaDiario(formatoDelTexto.parse("12-3-2020"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+                    diaDiario = new DiaDiario(formatoDelTexto.parse("16-3-2020"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
                             "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis ");
                     mDao.insert(diaDiario);
                 } catch (ParseException e) {

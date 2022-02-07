@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 
+import net.iesseveroochoa.fernandomartinezperez.practica5_2021.repository.DiarioRepository;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,16 +17,17 @@ import java.util.Date;
 import java.util.List;
 
 public class DiaViewModel extends AndroidViewModel {
-    private MutableLiveData<List<DiaDiario>> listaDiasLiveData;
-
+    private LiveData<List<DiaDiario>> listaDiasLiveData;
+    private DiarioRepository repository;
     private List<DiaDiario> listaDias;
 
     public DiaViewModel(@NonNull Application application) {
         super(application);
-
-        listaDiasLiveData = new MutableLiveData<List<DiaDiario>>();
-        crearDatos();
-        listaDiasLiveData.setValue(listaDias);
+        repository = DiarioRepository.getInstance(application);
+        listaDiasLiveData = repository.getAllDias();
+        //listaDiasLiveData = new MutableLiveData<List<DiaDiario>>();
+        //crearDatos();
+        //listaDiasLiveData.setValue(listaDias);
 
     }
 
@@ -42,29 +45,30 @@ public class DiaViewModel extends AndroidViewModel {
      * Este metodo sirve par añadir una dia
      */
     public void addDia(DiaDiario dia) {
-        int index = 0;
 
+        repository.insert(dia);
+        /*int index = 0;
         index = listaDias.indexOf(dia);
         if (index < 0) {
             listaDias.add(dia);
-            listaDiasLiveData.setValue(listaDias);
+            listaDiasLiveData.getValue(listaDias);
 
         } else {
             listaDias.remove(index);
             listaDias.add(index, dia);
             listaDiasLiveData.setValue(listaDias);
-
-        }
+        }*/
     }
 
     /**
      * Este metodo sirve para borrar una dia
      */
     public void delDia(DiaDiario dia) {
-        if (listaDias.size() > 0) {
+        repository.delete(dia);
+        /*if (listaDias.size() > 0) {
             listaDias.remove(dia);
             listaDiasLiveData.setValue(listaDias);
-        }
+        }*/
     }
 
 
@@ -74,51 +78,51 @@ public class DiaViewModel extends AndroidViewModel {
         SimpleDateFormat formatoDelTexto = new SimpleDateFormat("dd-MM-yyyy");
 
         try {
-        DiaDiario dia = new DiaDiario(formatoDelTexto.parse("12-3-2001"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
-                "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
-                "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
-                "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
-                "viverra pharetra. Pellentesque pulvinar vestibulum risus sit amet tempor. " +
-                "Sed blandit arcu sed risus interdum fermentum. Integer ornare lorem urna, " +
-                "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
-                "convallis");
-        listaDias.add(dia);
-        dia = new DiaDiario(formatoDelTexto.parse("12-3-2002"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
-                "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
-                "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
-                "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
-                "viverra pharetra. Pellentesque pulvinar vestibulum risus sit amet tempor. " +
-                "Sed blandit arcu sed risus interdum fermentum. Integer ornare lorem urna, " +
-                "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
-                "convallis");
-        listaDias.add(dia);
-        dia = new DiaDiario(formatoDelTexto.parse("12-3-2003"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
-                "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
-                "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
-                "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
-                "viverra pharetra. Pellentesque pulvinar vestibulum risus sit amet tempor. " +
-                "Sed blandit arcu sed risus interdum fermentum. Integer ornare lorem urna, " +
-                "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
-                "convallis");
-        listaDias.add(dia);
-        dia = new DiaDiario(formatoDelTexto.parse("12-3-2004"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
-                "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
-                "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
-                "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
-                "viverra pharetra. Pellentesque pulvinar vestibulum risus sit amet tempor. " +
-                "Sed blandit arcu sed risus interdum fermentum. Integer ornare lorem urna, " +
-                "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
-                "convallis");
-        listaDias.add(dia);
-        dia = new DiaDiario(formatoDelTexto.parse("12-3-2005"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
-                "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
-                "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
-                "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
-                "viverra pharetra. Pellentesque pulvinar vestibulum risus sit amet tempor. " +
-                "Sed blandit arcu sed risus interdum fermentum. Integer ornare lorem urna, " +
-                "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
-                "convallis");
-        listaDias.add(dia);
+            DiaDiario dia = new DiaDiario(formatoDelTexto.parse("12-3-2001"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+                    "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
+                    "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
+                    "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
+                    "viverra pharetra. Pellentesque pulvinar vestibulum risus sit amet tempor. " +
+                    "Sed blandit arcu sed risus interdum fermentum. Integer ornare lorem urna, " +
+                    "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
+                    "convallis");
+            listaDias.add(dia);
+            dia = new DiaDiario(formatoDelTexto.parse("12-3-2002"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+                    "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
+                    "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
+                    "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
+                    "viverra pharetra. Pellentesque pulvinar vestibulum risus sit amet tempor. " +
+                    "Sed blandit arcu sed risus interdum fermentum. Integer ornare lorem urna, " +
+                    "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
+                    "convallis");
+            listaDias.add(dia);
+            dia = new DiaDiario(formatoDelTexto.parse("12-3-2003"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+                    "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
+                    "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
+                    "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
+                    "viverra pharetra. Pellentesque pulvinar vestibulum risus sit amet tempor. " +
+                    "Sed blandit arcu sed risus interdum fermentum. Integer ornare lorem urna, " +
+                    "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
+                    "convallis");
+            listaDias.add(dia);
+            dia = new DiaDiario(formatoDelTexto.parse("12-3-2004"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+                    "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
+                    "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
+                    "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
+                    "viverra pharetra. Pellentesque pulvinar vestibulum risus sit amet tempor. " +
+                    "Sed blandit arcu sed risus interdum fermentum. Integer ornare lorem urna, " +
+                    "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
+                    "convallis");
+            listaDias.add(dia);
+            dia = new DiaDiario(formatoDelTexto.parse("12-3-2005"), 5, "Actualización de antivirus", "Lorem ipsum dolor sit amet, " +
+                    "consectetur adipiscing elit. Mauris laoreet aliquam sapien, quis mattis " +
+                    "diam pretium vel. Integer nec tincidunt turpis. Vestibulum interdum " +
+                    "accumsan massa, sed blandit ex fringilla at. Vivamus non sem vitae nisl " +
+                    "viverra pharetra. Pellentesque pulvinar vestibulum risus sit amet tempor. " +
+                    "Sed blandit arcu sed risus interdum fermentum. Integer ornare lorem urna, " +
+                    "eget consequat ante lacinia et. Phasellus ut diam et diam euismod " +
+                    "convallis");
+            listaDias.add(dia);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -133,7 +137,7 @@ public class DiaViewModel extends AndroidViewModel {
             listaDias.get(indice).setContenido(contenido);
             listaDias.get(indice).setValoracionDia(valoracionDia);
             listaDias.get(indice).setResumen(resumen);
-            listaDiasLiveData.setValue(listaDias);
+            //listaDiasLiveData.setValue(listaDias);
 
         }
     }
