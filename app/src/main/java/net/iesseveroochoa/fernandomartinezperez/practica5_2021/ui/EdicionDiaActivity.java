@@ -75,6 +75,9 @@ public class EdicionDiaActivity extends AppCompatActivity {
                             tvFecha.setText(dayOfMonth+"/"+ monthOfYear+"/"+year);
                             //diaDiarioAnt.setFecha(calendar.getTime());
                             fechaselec[0] = calendar.getTime();
+                            if (esEdicion == true){
+                                diaDiarioAnt.setFecha(fechaselec[0]);
+                            }
                         }
                     },
 
@@ -109,7 +112,7 @@ public class EdicionDiaActivity extends AppCompatActivity {
                 int valordia = Integer.parseInt(spValorDia.getSelectedItem().toString());
 
                 if (esEdicion == true) {
-                    diaDiario = new DiaDiario(diaDiarioAnt.getId(), fechaselec[0], valordia, etResumen.getText().toString(), etmContenido.getText().toString());
+                    diaDiario = new DiaDiario(diaDiarioAnt.getId(), diaDiarioAnt.getFecha(), valordia, etResumen.getText().toString(), etmContenido.getText().toString());
 
                 } else {
                     diaDiario = new DiaDiario(fechaselec[0], valordia, etResumen.getText().toString(), etmContenido.getText().toString());
