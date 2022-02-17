@@ -8,9 +8,15 @@
         android:id="@+id/accion_ordenar"
         android:title="@string/az"
         app:showAsAction="ifRoom" />
-    <item android:title="Item" />
-    <item android:title="Item" />
-    <item android:title="Item" />
+    <item
+        android:id="@+id/accion_Valor_vida"
+        android:title="@string/valorvida" />
+    <item
+        android:id="@+id/accion_MEF"
+        android:title="@string/mef" />
+    <item
+        android:id="@+id/accion_Configurar"
+        android:title="@string/configurar" />
     <item
         android:id="@+id/accion_AcercaDe"
         android:title="@string/acercade" />

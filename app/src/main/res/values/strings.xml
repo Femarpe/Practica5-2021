@@ -15,6 +15,9 @@
     <string name="borrar">Borrar tarea</string>
     <string name="cancelar">Cancelar</string>
     <string name="contenido">Escribea aqui que te ha ocurrido hoy</string>
+    <string name="valorvida">Valor vida</string>
+    <string name="mef">Mostrar entre fechas</string>
+    <string name="configurar">Configurar</string>
     <string-array name="ValorDia">
         <item>0</item>
         <item>1</item>

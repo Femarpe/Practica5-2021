@@ -1,8 +1,10 @@
 package net.iesseveroochoa.fernandomartinezperez.practica5_2021.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,6 +13,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -21,6 +24,8 @@ import net.iesseveroochoa.fernandomartinezperez.practica5_2021.R;
 import net.iesseveroochoa.fernandomartinezperez.practica5_2021.model.DiaDiario;
 import net.iesseveroochoa.fernandomartinezperez.practica5_2021.model.DiaViewModel;
 
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView rvDia;
@@ -30,11 +35,13 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fabnDia;
     private DiaViewModel diaViewModel;
     private DiaAdapter adapter;
+    private SearchView svBusqueda;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        svBusqueda = findViewById(R.id.svBusqueda);
 
         rvDia = findViewById(R.id.rvDias);
 
@@ -49,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
         diaViewModel = new ViewModelProvider(this).get(DiaViewModel.class);
         diaViewModel.getListaDias().observe(this, adapter::setListaDias);
-
 
 
         fabnDia.setOnClickListener(view -> {
@@ -78,6 +84,25 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra(EXTRA_DIA, dia);
             startActivityForResult(intent, OPTION_REQUEST_EDITAR);
         });
+
+        svBusqueda.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                                                      @Override
+                                                      public boolean onQueryTextSubmit(String query) {
+
+                                                          diaViewModel.setResumen(query);
+                                                          return true;
+                                                      }
+
+                                                      @Override
+                                                      public boolean onQueryTextChange(String newText) {
+
+                                                          if (newText.length() == 0)
+                                                              diaViewModel.setResumen("");
+                                                          return false;
+                                                      }
+                                                  });
+
+
     }
 
 

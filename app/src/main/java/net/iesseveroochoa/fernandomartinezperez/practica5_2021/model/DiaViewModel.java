@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 
 import net.iesseveroochoa.fernandomartinezperez.practica5_2021.repository.DiarioRepository;
@@ -20,11 +21,20 @@ public class DiaViewModel extends AndroidViewModel {
     private LiveData<List<DiaDiario>> listaDiasLiveData;
     private DiarioRepository repository;
     private List<DiaDiario> listaDias;
+    private MutableLiveData<String> condicionBusquedaLiveData;
 
     public DiaViewModel(@NonNull Application application) {
         super(application);
         repository = DiarioRepository.getInstance(application);
         listaDiasLiveData = repository.getAllDias();
+        condicionBusquedaLiveData=new MutableLiveData<String>();
+        condicionBusquedaLiveData.setValue("");
+
+
+
+        listaDiasLiveData= Transformations.switchMap(condicionBusquedaLiveData,
+                resumen -> repository.getByResumen(resumen));
+
         //listaDiasLiveData = new MutableLiveData<List<DiaDiario>>();
         //crearDatos();
         //listaDiasLiveData.setValue(listaDias);
@@ -140,5 +150,11 @@ public class DiaViewModel extends AndroidViewModel {
             //listaDiasLiveData.setValue(listaDias);
 
         }
+    }
+
+
+    public void setResumen(String query) {
+        condicionBusquedaLiveData.setValue(query);
+
     }
 }

@@ -41,7 +41,6 @@ public interface DiarioDao {
     )
     LiveData<List<DiaDiario>> getDiaDiarioOrderBy(String sort_by, String sort);
 
-
-
-
+    @Query("SELECT * FROM "+DiaDiario.TABLE_NAME+" where resumen LIKE  '%' || :resumen || '%' OR contenido LIKE '%' || :resumen || '%'")
+    LiveData<List<DiaDiario>> findByResumen(String resumen);
 }

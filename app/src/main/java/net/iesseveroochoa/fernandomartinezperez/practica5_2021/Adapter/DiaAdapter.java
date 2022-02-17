@@ -37,8 +37,22 @@ public class DiaAdapter extends RecyclerView.Adapter<DiaAdapter.DiaViewHolder> {
         if (listaDias != null) {
             final DiaDiario dia = listaDias.get(position);
 
-            holder.tvResumen.setText(dia.getId() + "-" + dia.getResumen());
-            holder.tvTecnico.setText(dia.getId() + "-" + dia.getFechaFormatoLocal());
+            holder.tvResumen.setText(dia.getResumen());
+            holder.tvTecnico.setText(dia.getFechaFormatoLocal());
+
+            int imDia = dia.getValoracionResumida(dia.getValoracionDia());
+            if (imDia == 1){
+                holder.ivEstado.setImageResource(R.drawable.ic_sad);
+
+            } else if (imDia == 2){
+                holder.ivEstado.setImageResource(R.drawable.ic_neutral);
+
+            } else {
+                holder.ivEstado.setImageResource(R.drawable.ic_smile);
+
+            }
+
+
 
 
         }
