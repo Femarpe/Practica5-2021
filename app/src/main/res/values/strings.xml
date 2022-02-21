@@ -18,6 +18,7 @@
     <string name="valorvida">Valor vida</string>
     <string name="mef">Mostrar entre fechas</string>
     <string name="configurar">Configurar</string>
+    <string name="añadirimg">Añadir imagen</string>
     <string-array name="ValorDia">
         <item>0</item>
         <item>1</item>
