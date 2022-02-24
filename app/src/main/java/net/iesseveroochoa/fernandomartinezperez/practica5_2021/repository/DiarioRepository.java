@@ -11,6 +11,8 @@ import net.iesseveroochoa.fernandomartinezperez.practica5_2021.model.DiarioDao;
 
 import java.util.List;
 
+import io.reactivex.Single;
+
 
 public class DiarioRepository {
     //implementamos Singleton
@@ -41,6 +43,9 @@ public class DiarioRepository {
         return mAllDias;
     }
 
+    public Single<Integer> getMediaVida(){
+        return mDiarioDao.getValorVida();
+    }
 
     public LiveData<List<DiaDiario>> getDiasOrderBy(String order_by, String order) {
         mAllDias = mDiarioDao.getDiaDiarioOrderBy(order_by, order);

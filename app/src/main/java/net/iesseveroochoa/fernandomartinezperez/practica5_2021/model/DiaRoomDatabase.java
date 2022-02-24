@@ -71,6 +71,7 @@ public abstract class DiaRoomDatabase extends RoomDatabase {
             });
         }
 
+
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);

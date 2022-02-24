@@ -2,7 +2,7 @@ package net.iesseveroochoa.fernandomartinezperez.practica5_2021.model;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.*;
-
+import io.reactivex.Single;
 import java.util.List;
 
 
@@ -12,7 +12,7 @@ public interface DiarioDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(DiaDiario diaDiario);
 
-    @Query("DELETE FROM "+DiaDiario.TABLE_NAME)
+    @Query("DELETE FROM " + DiaDiario.TABLE_NAME)
     void deleteAll();
 
     @Delete
@@ -21,8 +21,11 @@ public interface DiarioDao {
     @Update
     void update(DiaDiario diaDiario);
 
-    @Query("SELECT * FROM "+DiaDiario.TABLE_NAME+" ORDER BY _id")
+    @Query("SELECT * FROM " + DiaDiario.TABLE_NAME + " ORDER BY _id")
     LiveData<List<DiaDiario>> getAllDiaDiario();
+
+    @Query("SELECT AVG(valoracionDia) FROM " + DiaDiario.TABLE_NAME)
+    Single<Integer> getValorVida();
 
 
     @Query("SELECT COUNT(*) from DIARIO")
@@ -30,17 +33,15 @@ public interface DiarioDao {
 
 
 
-
-
-    @Query("SELECT * FROM  " +DiaDiario.TABLE_NAME +
+    @Query("SELECT * FROM  " + DiaDiario.TABLE_NAME +
             " ORDER BY " +
-            "CASE WHEN :sort_by = 'id'   AND :sort = 'ASC' THEN _id END ASC, "+
+            "CASE WHEN :sort_by = 'id'   AND :sort = 'ASC' THEN _id END ASC, " +
             "CASE WHEN :sort_by = 'id'   AND :sort = 'DESC' THEN _id END DESC"
 
 
     )
     LiveData<List<DiaDiario>> getDiaDiarioOrderBy(String sort_by, String sort);
 
-    @Query("SELECT * FROM "+DiaDiario.TABLE_NAME+" where resumen LIKE  '%' || :resumen || '%' OR contenido LIKE '%' || :resumen || '%'")
+    @Query("SELECT * FROM " + DiaDiario.TABLE_NAME + " where resumen LIKE  '%' || :resumen || '%' OR contenido LIKE '%' || :resumen || '%'")
     LiveData<List<DiaDiario>> findByResumen(String resumen);
 }

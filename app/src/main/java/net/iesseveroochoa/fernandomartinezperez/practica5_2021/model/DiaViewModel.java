@@ -17,22 +17,36 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.Single;
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class DiaViewModel extends AndroidViewModel {
     private LiveData<List<DiaDiario>> listaDiasLiveData;
     private DiarioRepository repository;
     private List<DiaDiario> listaDias;
     private MutableLiveData<String> condicionBusquedaLiveData;
+    private int salida;
+
+    public int getSalida() {
+        return salida;
+    }
+
+    public void setSalida(int salida) {
+        this.salida = salida;
+    }
 
     public DiaViewModel(@NonNull Application application) {
         super(application);
         repository = DiarioRepository.getInstance(application);
         listaDiasLiveData = repository.getAllDias();
-        condicionBusquedaLiveData=new MutableLiveData<String>();
+        condicionBusquedaLiveData = new MutableLiveData<String>();
         condicionBusquedaLiveData.setValue("");
 
 
-
-        listaDiasLiveData= Transformations.switchMap(condicionBusquedaLiveData,
+        listaDiasLiveData = Transformations.switchMap(condicionBusquedaLiveData,
                 resumen -> repository.getByResumen(resumen));
 
         //listaDiasLiveData = new MutableLiveData<List<DiaDiario>>();
@@ -152,6 +166,28 @@ public class DiaViewModel extends AndroidViewModel {
         }
     }
 
+    public int getMediaValorDias() {
+
+        Single<Integer> interm = repository.getMediaVida();
+        interm.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<Integer>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onSuccess(Integer integer) {
+                salida = integer;
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+        });
+
+        return salida;
+    }
 
     public void setResumen(String query) {
         condicionBusquedaLiveData.setValue(query);

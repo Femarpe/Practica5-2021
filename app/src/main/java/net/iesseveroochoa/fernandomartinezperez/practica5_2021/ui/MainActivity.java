@@ -11,11 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -23,6 +27,7 @@ import net.iesseveroochoa.fernandomartinezperez.practica5_2021.Adapter.DiaAdapte
 import net.iesseveroochoa.fernandomartinezperez.practica5_2021.R;
 import net.iesseveroochoa.fernandomartinezperez.practica5_2021.model.DiaDiario;
 import net.iesseveroochoa.fernandomartinezperez.practica5_2021.model.DiaViewModel;
+import net.iesseveroochoa.fernandomartinezperez.practica5_2021.model.DiarioDao;
 
 import java.util.List;
 
@@ -86,21 +91,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
         svBusqueda.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                                                      @Override
-                                                      public boolean onQueryTextSubmit(String query) {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
 
-                                                          diaViewModel.setResumen(query);
-                                                          return true;
-                                                      }
+                diaViewModel.setResumen(query);
+                return true;
+            }
 
-                                                      @Override
-                                                      public boolean onQueryTextChange(String newText) {
+            @Override
+            public boolean onQueryTextChange(String newText) {
 
-                                                          if (newText.length() == 0)
-                                                              diaViewModel.setResumen("");
-                                                          return false;
-                                                      }
-                                                  });
+                if (newText.length() == 0)
+                    diaViewModel.setResumen("");
+                return false;
+            }
+        });
 
 
     }
@@ -128,7 +133,39 @@ public class MainActivity extends AppCompatActivity {
 
             return false;
 
+        } else if (id == R.id.accion_Valor_vida) {
+            int vidaMedia = diaViewModel.getMediaValorDias();
+
+            AlertDialog.Builder dialogo = new AlertDialog.Builder(MainActivity.this);
+            LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+
+
+            View v = inflater.inflate(R.layout.vida, null);
+            ImageView imgVida = v.findViewById(R.id.ivVida);
+            //realizamos una media de la vida
+            // int totalVida = DiaDiario.getValoracionResumida((int) mediaValoracion.floatValue());
+            switch (vidaMedia) {
+                case 1://triste
+                    imgVida.setImageResource(R.drawable.sad);
+                    break;
+                case 2:
+                    imgVida.setImageResource(R.drawable.neutro);
+                    break;
+                case 3:
+                    imgVida.setImageResource(R.drawable.smile);
+                    break;
+            }
+            dialogo.setView(v)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+
+            dialogo.show();
         }
+
+
         return super.onOptionsItemSelected(item);
     }
 
