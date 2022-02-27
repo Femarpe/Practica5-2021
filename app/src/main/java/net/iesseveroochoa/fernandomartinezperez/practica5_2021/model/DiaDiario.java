@@ -63,6 +63,8 @@ public class DiaDiario implements Parcelable {
         this.contenido = contenido;
     }
 
+
+
     public int getId() {
         return id;
     }
@@ -141,7 +143,11 @@ public class DiaDiario implements Parcelable {
                 Locale.getDefault());
         return df.format(fecha);
     }
-
+    public static String getFechaFormatoLocal(Date fechaf) {
+        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM,
+                Locale.getDefault());
+        return df.format(fechaf);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -152,39 +158,6 @@ public class DiaDiario implements Parcelable {
     }
 
 
-    /**
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeLong(this.fecha != null ? this.fecha.getTime() : -1);
-        parcel.writeInt(valoracionDia);
-        parcel.writeString(resumen);
-        parcel.writeString(contenido);
-        parcel.writeString(fotoUri);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, fecha, valoracionDia, resumen, contenido, fotoUri);
-    }
-
-    public static final Creator<DiaDiario> CREATOR = new Creator<DiaDiario>() {
-        @Override
-        public DiaDiario createFromParcel(Parcel in) {
-            return new DiaDiario(in);
-        }
-
-        @Override
-        public DiaDiario[] newArray(int size) {
-            return new DiaDiario[size];
-        }
-    };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-    */
     @Override
     public int describeContents() {
         return 0;

@@ -1,6 +1,5 @@
 package net.iesseveroochoa.fernandomartinezperez.practica5_2021.ui;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -13,7 +12,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -23,7 +21,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -53,9 +50,11 @@ public class EdicionDiaActivity extends AppCompatActivity {
     private ImageView ivFotoDia;
     boolean esEdicion;
     private Button addImg;
-    DiaDiario diaDiarioAnt;
+    DiaDiario oldDiaDiario;
     DiaDiario dia;
     private View clPrincipal;
+    Date fechaselec;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,34 +68,41 @@ public class EdicionDiaActivity extends AppCompatActivity {
         fabGuardar = findViewById(R.id.fabGuardar);
         spValorDia = findViewById(R.id.spValorDia);
         tvFecha = findViewById(R.id.tvFecha);
-        diaDiarioAnt = getIntent().getParcelableExtra(EXTRA_DIA);
         ivFotoDia = findViewById(R.id.ivFotoDia);
         addImg = findViewById(R.id.btAddImg);
-        final Date[] fechaselec = {new Date()};
+        fechaselec = new Date();
 
-        if (diaDiarioAnt != null) {
+        oldDiaDiario = getIntent().getParcelableExtra(EXTRA_DIA);
+        if (oldDiaDiario != null) {
             esEdicion = true;
-            spValorDia.setSelection(getIndex(spValorDia, String.valueOf(diaDiarioAnt.getValoracionDia())));
-            tvFecha.setText(diaDiarioAnt.getFechaFormatoLocal());
-            etResumen.setText(diaDiarioAnt.getResumen());
-            etmContenido.setText(diaDiarioAnt.getContenido());
+            spValorDia.setSelection(getIndex(spValorDia, String.valueOf(oldDiaDiario.getValoracionDia())));
+            tvFecha.setText(oldDiaDiario.getFechaFormatoLocal());
+            etResumen.setText(oldDiaDiario.getResumen());
+            etmContenido.setText(oldDiaDiario.getContenido());
+            if (oldDiaDiario.getFotoUri() != null) {
+                uriFoto = Uri.parse(oldDiaDiario.getFotoUri());
+                muestraFoto();
+            }
         } else {
             esEdicion = false;
-
+            tvFecha.setText(DiaDiario.getFechaFormatoLocal(fechaselec));
         }
 
         ibfecha.setOnClickListener(view -> {
             DatePickerDialog dialogo = new DatePickerDialog(this, new
                     DatePickerDialog.OnDateSetListener() {
                         @Override
-                        public void onDateSet(DatePicker view, int year, int
-                                monthOfYear, int dayOfMonth) {
+                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                             Calendar calendar = Calendar.getInstance();
                             calendar.set(year, monthOfYear, dayOfMonth);
-                            tvFecha.setText(dayOfMonth + "/" + monthOfYear + "/" + year);
-                            fechaselec[0] = calendar.getTime();
-                            if (esEdicion == true) {
-                                diaDiarioAnt.setFecha(fechaselec[0]);
+
+                            fechaselec = calendar.getTime();
+
+                            if (esEdicion) {
+                                oldDiaDiario.setFecha(fechaselec);
+                                tvFecha.setText(oldDiaDiario.getFechaFormatoLocal());
+                            } else {
+                                tvFecha.setText(DiaDiario.getFechaFormatoLocal(fechaselec));
                             }
                         }
                     },
@@ -110,8 +116,6 @@ public class EdicionDiaActivity extends AppCompatActivity {
 
         /**Aqui si se pulsa 'guardar' se recogen los datos en pantalla y se envian a la acividad principal*/
         fabGuardar.setOnClickListener(v -> {
-
-
             if (etResumen.getText().toString().isEmpty() || etmContenido.getText().toString().isEmpty()) {
 
                 AlertDialog.Builder builder =
@@ -119,34 +123,35 @@ public class EdicionDiaActivity extends AppCompatActivity {
 
                 builder.setMessage(getString(R.string.cvacioMensage))
                         .setTitle(R.string.campovacio)
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
+                        .setPositiveButton("Ok", (dialog, id) -> dialog.cancel());
 
                 builder.show();
             } else {
 
-                DiaDiario diaDiario;
+                DiaDiario newDiaDiario;
                 int valordia = Integer.parseInt(spValorDia.getSelectedItem().toString());
 
-                if (esEdicion == true) {
-                    diaDiario = new DiaDiario(diaDiarioAnt.getId(),
-                            diaDiarioAnt.getFecha(),
+                if (esEdicion) {
+                    newDiaDiario = new DiaDiario(
+                            oldDiaDiario.getId(),
+                            oldDiaDiario.getFecha(),
                             valordia,
                             etResumen.getText().toString(),
                             etmContenido.getText().toString());
 
                 } else {
-                    diaDiario = new DiaDiario(fechaselec[0],
+                    newDiaDiario = new DiaDiario(
+                            fechaselec,
                             valordia,
                             etResumen.getText().toString(),
                             etmContenido.getText().toString());
 
                 }
                 ocultarTeclado();
-                intent.putExtra(EXTRA_DIA, diaDiario);
+                if (uriFoto != null) {
+                    newDiaDiario.setFotoUri(uriFoto.toString());
+                }
+                intent.putExtra(EXTRA_DIA, newDiaDiario);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }
@@ -248,7 +253,7 @@ public class EdicionDiaActivity extends AppCompatActivity {
         }
     }
 
-    public void abrirCamara(){
+    public void abrirCamara() {
 
     }
 }

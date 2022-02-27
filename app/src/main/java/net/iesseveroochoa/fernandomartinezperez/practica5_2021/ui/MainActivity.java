@@ -4,17 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,10 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import net.iesseveroochoa.fernandomartinezperez.practica5_2021.Adapter.DiaAdapter;
 import net.iesseveroochoa.fernandomartinezperez.practica5_2021.R;
 import net.iesseveroochoa.fernandomartinezperez.practica5_2021.model.DiaDiario;
-import net.iesseveroochoa.fernandomartinezperez.practica5_2021.model.DiaViewModel;
-import net.iesseveroochoa.fernandomartinezperez.practica5_2021.model.DiarioDao;
-
-import java.util.List;
+import net.iesseveroochoa.fernandomartinezperez.practica5_2021.viewmodels.DiaViewModel;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -63,6 +60,12 @@ public class MainActivity extends AppCompatActivity {
         diaViewModel.getListaDias().observe(this, adapter::setListaDias);
 
 
+        int orientation = getResources().getConfiguration().orientation;
+        if(orientation== Configuration.ORIENTATION_PORTRAIT)//una fila
+            rvDia.setLayoutManager(new LinearLayoutManager(this));
+        else
+            rvDia.setLayoutManager(new GridLayoutManager(this, 2));
+
         fabnDia.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, EdicionDiaActivity.class);
             int codigoNuevoDia = OPTION_REQUEST_CREAR;
@@ -84,11 +87,36 @@ public class MainActivity extends AppCompatActivity {
             builder.show();
 
         });
+
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView,
+                                  RecyclerView.ViewHolder
+                                          viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder
+                                         viewHolder, int
+                                         swipeDir) {
+
+                DiaDiario diaDelete = ((DiaAdapter.DiaViewHolder) viewHolder).getDia();
+                diaViewModel.delDia(diaDelete);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new
+                ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(rvDia);
+
+
         adapter.setOnItemClickEditarListener(dia -> {
             Intent intent = new Intent(MainActivity.this, EdicionDiaActivity.class);
             intent.putExtra(EXTRA_DIA, dia);
             startActivityForResult(intent, OPTION_REQUEST_EDITAR);
         });
+
 
         svBusqueda.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -142,8 +170,8 @@ public class MainActivity extends AppCompatActivity {
 
             View v = inflater.inflate(R.layout.vida, null);
             ImageView imgVida = v.findViewById(R.id.ivVida);
+
             //realizamos una media de la vida
-            // int totalVida = DiaDiario.getValoracionResumida((int) mediaValoracion.floatValue());
             switch (vidaMedia) {
                 case 1://triste
                     imgVida.setImageResource(R.drawable.sad);
@@ -156,11 +184,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
             dialogo.setView(v)
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
+                    .setPositiveButton(android.R.string.ok, (dialog, id1) -> dialog.cancel());
 
             dialogo.show();
         }

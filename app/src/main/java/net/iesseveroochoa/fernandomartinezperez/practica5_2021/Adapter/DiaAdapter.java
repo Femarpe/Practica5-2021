@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.motion.widget.OnSwipe;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -80,24 +81,27 @@ public class DiaAdapter extends RecyclerView.Adapter<DiaAdapter.DiaViewHolder> {
             tvTecnico = itemView.findViewById(R.id.tvTecnico);
             ivEstado = itemView.findViewById(R.id.ivEstado);
 
-
-            ivEditar = itemView.findViewById(R.id.ivEditar);
-            ivEditar.setOnClickListener(v -> listenerEditar.onItemClickEditar(
-                    listaDias.get(DiaViewHolder.this.getAbsoluteAdapterPosition())));
-
-
+            /*
             ivBorrar = itemView.findViewById(R.id.ivBorrar);
             ivBorrar.setOnClickListener(v -> listenerBorrar.onItemClickBorrar(
                     listaDias.get(DiaViewHolder.this.getAbsoluteAdapterPosition())));
+            */
+
 
             clItem = itemView.findViewById(R.id.clItem);
+            clItem.setOnClickListener(v -> listenerEditar.onItemClickEditar(
+                    listaDias.get(DiaViewHolder.this.getAbsoluteAdapterPosition())));
 
         }
+        public DiaDiario getDia(){
+            return listaDias.get(DiaViewHolder.this.
+                    getBindingAdapterPosition());
+        }
+
     }
 
     public interface OnItemClickBorrarListener {
         void onItemClickBorrar(DiaDiario dia);
-
     }
 
     public interface OnItemClickEditarListener {

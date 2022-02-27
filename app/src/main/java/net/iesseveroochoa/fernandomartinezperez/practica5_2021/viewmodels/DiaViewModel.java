@@ -1,4 +1,4 @@
-package net.iesseveroochoa.fernandomartinezperez.practica5_2021.model;
+package net.iesseveroochoa.fernandomartinezperez.practica5_2021.viewmodels;
 
 import android.app.Application;
 
@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
 
+import net.iesseveroochoa.fernandomartinezperez.practica5_2021.model.DiaDiario;
 import net.iesseveroochoa.fernandomartinezperez.practica5_2021.repository.DiarioRepository;
 
 import java.text.ParseException;
@@ -49,9 +50,6 @@ public class DiaViewModel extends AndroidViewModel {
         listaDiasLiveData = Transformations.switchMap(condicionBusquedaLiveData,
                 resumen -> repository.getByResumen(resumen));
 
-        //listaDiasLiveData = new MutableLiveData<List<DiaDiario>>();
-        //crearDatos();
-        //listaDiasLiveData.setValue(listaDias);
 
     }
 
@@ -66,22 +64,13 @@ public class DiaViewModel extends AndroidViewModel {
     }
 
     /**
-     * Este metodo sirve par añadir una dia
+     * Este metodo sirve para añadir un dia
      */
     public void addDia(DiaDiario dia) {
 
         repository.insert(dia);
-        /*int index = 0;
-        index = listaDias.indexOf(dia);
-        if (index < 0) {
-            listaDias.add(dia);
-            listaDiasLiveData.getValue(listaDias);
 
-        } else {
-            listaDias.remove(index);
-            listaDias.add(index, dia);
-            listaDiasLiveData.setValue(listaDias);
-        }*/
+
     }
 
     /**
@@ -89,10 +78,7 @@ public class DiaViewModel extends AndroidViewModel {
      */
     public void delDia(DiaDiario dia) {
         repository.delete(dia);
-        /*if (listaDias.size() > 0) {
-            listaDias.remove(dia);
-            listaDiasLiveData.setValue(listaDias);
-        }*/
+
     }
 
 
@@ -161,7 +147,6 @@ public class DiaViewModel extends AndroidViewModel {
             listaDias.get(indice).setContenido(contenido);
             listaDias.get(indice).setValoracionDia(valoracionDia);
             listaDias.get(indice).setResumen(resumen);
-            //listaDiasLiveData.setValue(listaDias);
 
         }
     }
